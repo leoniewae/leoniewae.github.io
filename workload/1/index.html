@@ -4,22 +4,22 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-    <title>Radio Input</title>
+    <title>Textarea element</title>
   </head>
   <body>
     <section id="overlay">
       <img src="https://s3.amazonaws.com/codecademy-content/courses/web-101/unit-6/htmlcss1-img_burger-logo.svg" alt="Davie's Burgers Logo" id="logo">
       <hr>
-      <form>
+      <form action="submission.html" method="POST">
         <h1>Create a burger!</h1>
-        <section class="protein">
+                <section class="protein">
           <label for="patty">What type of protein would you like?</label>
-    			<input type="text" name="patty" id="patty" value="beef">
+    			<input type="text" name="patty" id="patty">
         </section>
         <hr>
         <section class="patties">
           <label for="amount">How many patties would you like?</label>
-          <input type="number" name="amount" value="2" id="amount">
+          <input type="number" name="amount" id="amount">
         </section>
         <hr>
         <section class="cooked">
@@ -54,23 +54,31 @@
           <label for="bun">What type of bun would you like?</label>
           <select name="bun" id="bun">
             <option value="sesame">Sesame</option>
-            <option value="potato">Potato</option>
+            <option value="potatoe">Potato</option>
             <option value="pretzel">Pretzel</option>
           </select>
         </section>
         <hr>
-
         <section class="sauce-selection">
-					<label for="sauce">What type of sauce would you like?</label>
+          <label for="sauce">What type of sauce would you like?</label>
           <input list="sauces" id="sauce" name="sauce">
-          <!--Add your code below-->
-					<datalist id="sauces">
+          <datalist id="sauces">
             <option value="ketchup"></option>
             <option value="mayo"></option>
             <option value="mustard"></option>
           </datalist>
         </section>
+        <hr>
 
+        <section class="extra-info">
+          <label for="extra">Anything else you want to add?</label>
+          <br>
+          <textarea id="extra" name="extra" rows="3" cols="40">We hop you love your personalized Burger</textarea>
+          <!--Add your code below-->
+					
+          
+        </section>
+        
       </form>
     </section>
   </body>
