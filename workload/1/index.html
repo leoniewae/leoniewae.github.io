@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-    <title>Range Input</title>
+    <title>Checkbox Input</title>
   </head>
   <body>
     <section id="overlay">
@@ -12,7 +12,7 @@
       <hr>
       <form>
         <h1>Create a burger!</h1>
-				<section class="protein">
+        <section class="protein">
           <label for="patty">What type of protein would you like?</label>
     			<input type="text" name="patty" id="patty">
         </section>
@@ -22,16 +22,31 @@
           <input type="number" name="amount" id="amount">
         </section>
         <hr>
-				
-        <section class="cooked"> 
-          <input id="doneness" name="doneness" type="range" min="0" max="5" step="0.5">
-<label for="doneness">How do you want your patty cooked</label>
+        <section class="cooked">
+          <label for="doneness">How do you want your patty cooked</label>
           <br>
           <span>Rare</span>
-		       <!--Add your code below-->
-
-          
+          <input type="range" name="doneness" id="doneness" value="3" min="1" max="5">
           <span>Well-Done</span>
+        </section>
+        <hr>
+        
+        <section class="toppings">
+          <span>What toppings would you like?</span>
+          <br>
+          <!--Add your code below for the first checkbox-->
+
+					<label for="lettuce">Lettuce</label>
+          <input id="lettuce" name="topping" type="Checkbox" value="lettuce">
+          <!--Add your code below for the second checkbox-->
+
+          <label for="tomato">Tomato</label>
+          <!--Add your code below for the third checkbox-->
+<input id="tomato" type="checkbox" name="topping" value="tomato">
+          
+          <label for="Cucumber">Cucumber</label>
+          <input id="Cucumber" type="checkbox" name="topping" value="Cucumber">
+
         </section>
         
       </form>
