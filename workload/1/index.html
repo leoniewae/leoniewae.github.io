@@ -10,16 +10,17 @@
     <section class="overlay">
       <h1>Guess the right number!</h1>
       <form action="check.html" method="GET">
-        <!--Add a required attribute to the input element-->
         <label for="guess">Enter a number between 1-10:</label>
         <br>
-        <input type="number" name="guess" id="guess"required>
+        <!--Add the min and max attribute to the input-->
+        <input type="number" name="guess" id="guess" min="1" max="10" required>
         <br>
-        <input type="submit" id="submission" value="Submit"required>
+        <input type="submit" id="submission" value="Submit">
       </form>
     </section>
   </body>
 </html>
+
 
 
 
