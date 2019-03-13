@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-    <title>Radio Input</title>
+    <title>Dropdown List</title>
   </head>
   <body>
     <section id="overlay">
@@ -17,7 +17,7 @@
     			<input type="text" name="patty" id="patty">
         </section>
         <hr>
-        <section class="patties">
+  <section class="patties">
           <label for="amount">How many patties would you like?</label>
           <input type="number" name="amount" id="amount">
         </section>
@@ -26,7 +26,7 @@
           <label for="doneness">How do you want your patty cooked</label>
           <br>
           <span>Rare</span>
-          <input type="range" name="doneness" id="doneness" value="3" min="1" max="5">         					
+          <input type="range" name="doneness" id="doneness" value="3" min="1" max="5">
           <span>Well-Done</span>
         </section>
         <hr>
@@ -41,24 +41,31 @@
           <label for="onion">Onion</label>
         </section>
         <hr>
-
         <section class="cheesy">
           <span>Would you like to add cheese?</span>
           <br>
-	        <!--Add your first radio button below-->
-
+          <input type="radio" name="cheese" id="yes" value="yes">
           <label for="yes">Yes</label>
-          <input id="yes" type="radio" name="cheese" value="yes">
-	        <!--Add your second radio button below-->
-
+          <input type="radio" name="cheese" id="no" value="yes">
           <label for="no">No</label>
-          <input id="no" type="radio" name="cheese" value="no">
+        </section>
+        <hr>
+
+        <section class="bun-type">
+					<label for="bun">What type of bun would you like?</label>
+          <!--Add your code below-->
+					<select name="bun" id="bun">
+   <option value="sesame">Sesame</option>
+            <option value="potato">Potato</option>
+            <option value="Oregano">Oregano</option>
+          
         </section>
         
       </form>
     </section>
   </body>
 </html>
+
 
 
 
