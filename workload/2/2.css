@@ -32,4 +32,4 @@ h2.destination {
 .description h5 {
   color: teal;
 }
-h5 {color: rebeccapurple;}
+h5 {color: rebeccapurple !important;}
