@@ -1,6 +1,7 @@
 body {
     max-width: 1280px ;
     margin: auto;
+    font-family:"Open Sans";
 }
 
 header {
@@ -41,11 +42,14 @@ main {
 }
 main figure {
    margin-left: 0;
+  
 }
 main figcaption {
     float: left;
     margin-left: -8em;
     width: 7.5em;
+    color: grey;
+    
 }
 #map{
 height: 360px;
@@ -58,4 +62,15 @@ border: 1px solid black;
 }
 .next{
     float: right;
+}
+footer {
+    padding: 1em 0 3em 0;
+}
+
+@media only screen and (max-width: 1000px) {
+    main figcaption {
+        float: none;
+        margin-left: 0;
+        width: auto;
+    }
 }
