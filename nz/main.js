@@ -9,3 +9,10 @@ const titel = div.getAttribute ("data-title");
 //Karte initialisieren
 let karte = L.map ("map");
 //console.log (karte);
+
+//auf Ausschnitt zoomen
+karte.setView (
+    [breite,laenge],
+    13 // Zoomfaktor 1= ganze Welt bis 25= sehr nah
+
+);
