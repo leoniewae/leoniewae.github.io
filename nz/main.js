@@ -21,6 +21,9 @@ karte.setView (
 L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png").addTo(karte);
 
 //positionsmarker hinzufügen
-L.marker(
+let pin = L.marker(
    [breite,laenge]
 ).addTo(karte);
+
+//popup zum Pin hängen
+pin.bindPopup(titel);
