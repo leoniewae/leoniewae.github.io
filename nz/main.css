@@ -5,13 +5,22 @@ body {
 
 header {
     text-align: center;
+    background-image: url("images/atn_hintergrund.jpg");
+    background-position: 0 80%;
 }
 header h2 {
     font-size: 4em;
+    color: white;
+    margin: 0;
+
 }
 header h3 {
     font-size:2em;
+    margin: 0;
 }
 header h4 {
     font-size: 0.75em;
+}
+.author {
+    text-align: center;
 }
