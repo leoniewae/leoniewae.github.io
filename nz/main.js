@@ -19,3 +19,8 @@ karte.setView (
 
 //Openstreet Map hinzufügen
 L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png").addTo(karte);
+
+//positionsmarker hinzufügen
+L.marker(
+   [breite,laenge]
+).addTo(karte);
