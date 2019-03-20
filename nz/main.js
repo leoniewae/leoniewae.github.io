@@ -16,3 +16,6 @@ karte.setView (
     13 // Zoomfaktor 1= ganze Welt bis 25= sehr nah
 
 );
+
+//Openstreet Map hinzufügen
+L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png").addTo(karte);
