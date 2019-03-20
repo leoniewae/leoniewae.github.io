@@ -18,11 +18,11 @@ header h2 {
 header h3 {
     font-size:2em;
     margin: 0;
-    
+
 }
 header h4 {
     font-size: 0.75em;
-   
+
 }
 .author {
     text-align: center;
@@ -34,4 +34,28 @@ header h4 {
 }
 address a {color: grey;
 
+}
+main {
+    width: 70%;
+    margin: auto;
+}
+main figure {
+   margin-left: 0;
+}
+main figcaption {
+    float: left;
+    margin-left: -8em;
+    width: 7.5em;
+}
+#map{
+height: 360px;
+width: 90%;
+border: 1px solid black;
+
+}
+.back{
+    float: left;
+}
+.next{
+    float: right;
 }
