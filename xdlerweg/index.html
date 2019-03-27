@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Solsteinhaus - Leutasch/Ahrn</title><!-- TODO:Titel der Etappe -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <script defer src="main.js"></script>
+</head>
+    
+<body>
+    <header>
+        <h3>Der Adlerweg</h3>
+        <h2>Das Solsteinhaus - Leutasch/Ahrn</h2>
+        <!-- TODO: eine Überschrift 2 mit dem Titel der Etappe -->
+    </header>
+<div class="author">
+<img src="adlerweg\images\Solsteinhaus_mit_Erlspitze.jpg" alt="Der Abel Tasman National Park in Neuseeland"><br>
+
+<address>
+<a href="mailto:leonie_waechter@live.de">Leonie Wächter</a>
+<a href="https://github.com/leoniewae/leoniewae.github.io.git" target="_blank">Link zum Github Repository</a>
+</address>
+</div>
+    <!-- TODO: ein div-Element mit der Klasse "author" -->
+        <!-- TODO: ein User-(Symbol)Bild mit 100x100 Pixel im Format JPG mit dem Namen user.jpg in einem Unterordner images/ -->
+        <!-- TODO: ein address-Element mit zwei Links -->
+            <!-- TODO: ein Link auf die eigene E-Mailadresse mit dem eigenen Namen-->
+            <!-- TODO: ein Link auf den eigenen github.com Account -->
+
+    <hr />
+
+    <main>
+        <!-- TODO: eine Überschrift 1 mit dem Titel der Etappe und einem kurzen "Teaser" -->
+        <!-- TODO: ein Absatz mit einem Einführungstext zur Etappe aus der Wikipedia plus einem Link auf die Wikipedia-Seite in der Form "(Quelle: Wikipedia)", das Wort "Wikipedia" als Link -->
+
+        <!-- TODO: eine Überschrift 2 einer Sehenswürdigkeit der Etappe-->
+        <!-- TODO: eine vollständige Abbildung mit Bild im JPG-Format und kursiver Bildüberschrift für diese Sehenswürdigkeit. Das Bild soll attraction.jpg heißen, maximal 900 Pixel breit oder hoch sein und im Ordner images/ liegen. Das Bild soll von https://commons.wikimedia.org/ oder https://pixabay.com/ stammen und eine Public Domain, oder CC BY-SA Lizenz besitzen. -->
+        <!-- TODO: ein Absatz mit der Beschreibung der Sehenswürdigkeit aus der Wikipedia plus einem Link auf die Wikipedia-Seite in der Form "(Quelle: Wikipedia)", das Wort "Wikipedia" als Link -->
+
+        <h1>Abel Tasman National Park - Die Blauen Lagunen</h1>
+        <p>Der Abel Tasman National Park schützt ein 225,3 km² großes Gebiet an der Nordküste von Neuseelands Südinsel.<br> 
+           Er befindet sich am nördlichen Ende einer Hügelkette zwischen den beiden großen Meeresbuchten Golden Bay und Tasman Bay,<br>
+           etwa 70 km von Nelson entfernt. Die Höhenlage reicht vom Meeresspiegel bis etwa 1150 m</p>
+        <a href="https://de.wikipedia.org/wiki/Abel-Tasman-Nationalpark" target="_blank">Wikipedia</a>
+
+        <h2>Anapai Bay</h2>
+
+    <figur>
+        <figcaption><i class="fas fa-camera"></i><em> Die Anapai Bucht</em></figcaption>
+        <img src="images/attraction.jpg" alt="Die Anapai Bucht"> 
+    </figur>
+        
+    <p>Die zugänglichere Anapai Bay im Norden ist eine besonders schöne Bucht mit wunderbaren Felsformationen,<br> 
+        sowohl frühmorgens als auch Abends unheimlich fotogen und sicherlich die Wanderung wert.</p>
+        
+    
+    <h3>Übersichtskarte</h3>
+    
+    
+        <!-- TODO: ein div-Element mit dem id-Attribut "map" und drei weiteren Attributen data-lat, data-lng und data-title. Die Koordinaten von data-lat und data-lng sind als Dezimalgrad mit einem "." als Komma zu schreiben und aus der Wikipedia zu entnehmen. Das data-title Attribut enthält einen Titel für die oben verwendete Sehenswürdigkeit
+        -->
+<div id="map" data-lat="-40.802850" data-lng="173.004934" data-title="Die Anapai Bucht"></div>
+
+        <h3>Links</h3>
+        <ul>
+        <!-- TODO: 4 Links zu Seiten im Netz die zur Etappe/Sehenswürdigkeit passen als ungeordnete Liste -->
+       <li><a href="https://mapcarta.com/de/ChIJERorAsZmPG0RzXG95JOulsA" target="_blank">Camping an der Anapai Bucht</a><br></li>
+       <li><a href="https://www.tourleader.nz/reisefuehrer-neuseeland/neuseelands-regionen/nelson/abel-tasman-nationalpark" target="_blank">Wandertouren zur Anapai Bucht</a><br></li>
+       <li><a href="https://www.weltwunderer.de/abel-tasman-national-park-mit-kind-die-besten-straende-und-walks-fuer-familien/" target="_blank">Der Abel Tasman Nationalpark mit Kind</a><br></li>
+       <li><a href="https://www.wetteronline.de/wetter/abel-tasman-national-park" target="_blank">Das Wetter an der Anapai Bucht</a><br></li>
+    </ul>
+    </main>
+
+    <hr />
+
+    <footer>
+        <!-- TODO: ein nav-Element mit zwei Links auf die vorherige Etappe und die nächste Etappe mit den Klassen "back" und "next" sowie den Link-Texten "vorhergehender Stop" und "nächster Stop". Die Links verweisen auf die entsprechenden Etappen in der Form https://username.github.io/nz/index.html -->
+    <nav>
+            <a class=back href="https://github.com/alexderbanause/alexderbanause.github.io.git" target="_blank" class="back"><i class="fas fa-arrow-left"></i> vorhergehender Stop </a>
+            <a class=next href="https://github.com/hofmjani/hofmjani.github.io.git" target="_blank" class="next">nächster Stop <i class="fas fa-arrow-right"></i></a>
+    </nav>
+    </footer>
+
+</body>
+
+</html>
