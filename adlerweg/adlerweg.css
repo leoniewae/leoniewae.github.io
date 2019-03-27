@@ -6,7 +6,7 @@ body {
 
 header {
     text-align: center;
-    background-image: url("adlerweg\images\Solsteinhaus_mit_Erlspitze.jpg");
+    background-image: url("adlerweg/images/Solsteinhaus_mit_Erlspitze.jpg");
     background-position: 0 80%;
 }
 header h2 {
