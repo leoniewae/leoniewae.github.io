@@ -13,7 +13,7 @@ header h2 {
     font-size: 4em;
     color: black;
     margin: 0;
-    padding: 1em 0;
+    padding: 2em 0;
 
 }
 header h3 {
@@ -30,7 +30,7 @@ header h4 {
 }
 .author img {
     border-radius: 50%;
-    margin-top: -50px;
+    margin-top: -90px;
 
 }
 address a {color: grey;
