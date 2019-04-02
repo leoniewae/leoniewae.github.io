@@ -1,7 +1,7 @@
 body {
-    max-width: 1280px ;
+    max-width: 1280px;
     margin: auto;
-    font-family:"Open Sans";
+    font-family: "Open Sans";
 }
 
 header {
@@ -9,6 +9,7 @@ header {
     background-image: url("images/atn_hintergrund.jpg");
     background-position: 0 80%;
 }
+
 header h2 {
     font-size: 4em;
     color: white;
@@ -16,53 +17,66 @@ header h2 {
     padding: 1em 0;
 
 }
+
 header h3 {
-    font-size:2em;
+    font-size: 2em;
     margin: 0;
 
 }
+
 header h4 {
     font-size: 0.75em;
 
 }
+
 .author {
     text-align: center;
 }
+
 .author img {
     border-radius: 50%;
     margin-top: -50px;
 
 }
-address a {color: grey;
+
+address a {
+    color: grey;
 
 }
+
 main {
     width: 70%;
     margin: auto;
 }
+
 main figure {
-   margin-left: 0;
-  
+    margin-left: 0;
+
 }
+
 main figcaption {
     float: left;
     margin-left: -8em;
     width: 7.5em;
     color: grey;
-    
-}
-#map{
-height: 360px;
-width: 90%;
-border: 1px solid black;
 
 }
-.back{
+
+#map {
+    height: 360px;
+    width: 90%;
+    border: 1px solid black;
+
+}
+
+.back {
     float: left;
 }
-.next{
+
+.next {
     float: right;
 }
+
 footer {
     padding: 1em 0 3em 0;
 }

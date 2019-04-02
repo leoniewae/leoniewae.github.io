@@ -39,7 +39,7 @@ pin2.bindPopup(titel2).openPopup();
 let blickeGruppe = L.featureGroup().addTo(karte)
 
 for (let blick of ADLERBLICKE) {
-    
+
     let blickpin = L.marker([blick.lat, blick.lng]).addTo(blickeGruppe);
     blickpin.bindPopup(
         `<h1>Standort ${blick.standort}</h1>
@@ -48,7 +48,7 @@ for (let blick of ADLERBLICKE) {
 
 }
 
-console.log(blickeGruppe.getBounds());
+//console.log(blickeGruppe.getBounds());
 
 //Auf Adlerblicke zoomen
 karte.fitBounds(blickeGruppe.getBounds());
