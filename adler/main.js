@@ -44,24 +44,45 @@ const kartenlayer = {
         subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
         attribution: 'Datenquelle: <a href="https//www.basemap.at">basemap.at</a>'
     }),
-    bmapgelaende: L.tileLayer("https://{s}.wien.gv.at/basemap/bmapgelaende/normal/google3857/{z}/{y}/{x}.jpeg", {
+    bmapgelaende: L.tileLayer("https://{s}.wien.gv.at/basemap/bmapgelaende/grau/google3857/{z}/{y}/{x}.jpeg", {
         subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
         attribution: 'Datenquelle: <a href="https//www.basemap.at">basemap.at</a>'
     }),
-    bmapoberflaeche: L.tileLayer("https://{s}.wien.gv.at/basemap/bmapoberflaeche/normal/google3857/{z}/{y}/{x}.jpeg", {
+    bmapoberflaeche: L.tileLayer("https://{s}.wien.gv.at/basemap/bmapoberflaeche/grau/google3857/{z}/{y}/{x}.jpeg", {
         subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
         attribution: 'Datenquelle: <a href="https//www.basemap.at">basemap.at</a>'
+    }),
+    stamen_toner: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.pgn",{
+        subdomains: ["a", "b","c"],
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+    }),
+    stamen_relief: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",{
+        subdomains: ["a", "b","c"],
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+    }),
+    stamen_watercolor: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg",{
+       subdomains: ["a", "b","c"],
+       attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>',
     })
 
 };
+
 //kartenlayer.osm.addTo(karte)
-kartenlayer.geolandbasemap.addTo(karte);
 kartenlayer.bmapoverlay.addTo(karte);
-kartenlayer.bmapgrau.addTo(karte);
-kartenlayer.bmaphidpi.addTo(karte);
-kartenlayer.bmaporthofoto30cm.addTo(karte);
-kartenlayer.bmapgelaende.addTo(karte);
-kartenlayer.bmapoberflaeche.addTo(karte);
+
+//Auswahlmenü hinzufügen
+L.control.layers ({
+"Geoland Basemap": kartenlayer.geolandbasemap,
+"Geoland Basemap Grau": kartenlayer.bmapgrau,
+"Basemap High DPI": kartenlayer.bmaphidpi,
+"Geoland Basemap Orthofoto": kartenlayer.bmaporthofoto30cm,
+"Geoland Basemap Gelände": kartenlayer.bmapgelaende,
+"Geoland Basemap Oberfläche": kartenlayer.bmapoberflaeche, 
+"Stamen Toner": kartenlayer.stamen_toner,
+"Stamen Relief": kartenlayer.stamen_relief,
+"Stamen Watercolor": kartenlayer.stamen_watercolor
+}).addTo(karte);
+
 
 //Openstreet Map hinzufügen
 /*L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png",{
