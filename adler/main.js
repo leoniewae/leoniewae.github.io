@@ -21,7 +21,11 @@ karte.setView(
 );
 
 //Openstreet Map hinzufügen
-L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png").addTo(karte);
+L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png",{
+ subdomains: ["a","b", "c"],
+ attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+
+}).addTo(karte);
 
 //positionsmarker hinzufügen
 let pin1 = L.marker(
