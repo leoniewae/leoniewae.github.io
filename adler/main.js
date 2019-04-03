@@ -68,7 +68,7 @@ const kartenlayer = {
 };
 
 //kartenlayer.osm.addTo(karte)
-kartenlayer.bmapoverlay.addTo(karte);
+kartenlayer.geolandbasemap.addTo(karte);
 
 //Auswahlmenü hinzufügen
 L.control.layers ({
@@ -122,3 +122,10 @@ for (let blick of ADLERBLICKE) {
 
 //Auf Adlerblicke zoomen
 karte.fitBounds(blickeGruppe.getBounds());
+karte.addControl(new L.Control.Fullscreen());
+var hash = new L.Hash(karte);
+var coords = new L.Control.Coordinates();
+coords.addTo(karte);
+karte.on('click', function(e) {
+	coords.setCoordinates(e);
+});
