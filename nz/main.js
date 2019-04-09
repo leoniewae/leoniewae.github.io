@@ -34,16 +34,30 @@ const kartenlayer = {
     stamen_watercolor: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg",{
        subdomains: ["a", "b","c"],
        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>',
-    })
+    }),
 
+    NZ_Topo50: L.tileLayer("http://tiles-{s}.data-cdn.linz.govt.nz/services;key=6d200d69ba1f44c084b90ca0fd42e9a0/tiles/v4/layer=50767/EPSG:3857/{z}/{x}/{y}.png",{
+        subdomains: ["a", "b","c"],
+        attribution: 'Map tiles by <a href="https://data.linz.govt.nz/">Linz Data Service NZ</a>, under <a href="http://creativecommons.org/licenses/by/4.0">CC BY 4.0</a>'
+    }),
+
+    NZ_Aerial_Imagery: L.tileLayer("http://tiles-{s}.data-cdn.linz.govt.nz/services;key=6d200d69ba1f44c084b90ca0fd42e9a0/tiles/v4/set=4702/EPSG:3857/{z}/{x}/{y}.png",{
+        subdomains: ["a", "b","c"],
+        attribution: 'Map tiles by <a href="https://data.linz.govt.nz/">Linz Data Service NZ</a>, under <a href="http://creativecommons.org/licenses/by/4.0">CC BY 4.0</a>'
+
+})
 };
+
+
 
 kartenlayer.stamen_relief.addTo(karte)
 
 L.control.layers ({
 "Stamen Toner": kartenlayer.stamen_toner,
 "Stamen Relief": kartenlayer.stamen_relief,
-"Stamen Watercolor": kartenlayer.stamen_watercolor
+"Stamen Watercolor": kartenlayer.stamen_watercolor,
+"NZ Topo 50": kartenlayer.NZ_Topo50,
+"NZ Aerial Imagery": kartenlayer.NZ_Aerial_Imagery
 }).addTo(karte);
 
 
