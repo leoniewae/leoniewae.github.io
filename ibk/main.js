@@ -79,3 +79,6 @@ karte.on("locationfound", function(event){
     ]).addTo(karte);
 
 });
+
+L.circleMarker([47.261286399999996, 11.3803264], {radius: 200})
+.addTo(karte);
