@@ -76,17 +76,16 @@ for(let staette of SPORTSTAETTEN){
     console.log(staette);
     //piktogramm definieren
     let piktogramm = L.icon({
-        iconURL = `icons/icon_${staette.icon}
+        iconURL : `icons/icon_${staette.icon}
         _schwarz_auf_weiss_250px.png`
-    })
+    });
 
     //Marker zeichnen
   let positionsMarker =   L.marker(
-        [staette.lat,staette.lng] {
+        [staette.lat,staette.lng], {
             icon : piktogramm
         }
-    ).addTo(karte)
-};
+    ).addTo(karte);
 
 //Popup hinzufügen
 positionsmarker.bindPopup(`
@@ -94,4 +93,4 @@ positionsmarker.bindPopup(`
 <p>${steatte.typ}</p>
 `);
 
-
+};
