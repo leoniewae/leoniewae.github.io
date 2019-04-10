@@ -66,3 +66,16 @@ L.control.layers ({
 
 
 karte.setView([47,11], 13)
+
+karte.locate ({ 
+    setView : true,
+    maxZoom: 18,
+});
+
+karte.on("locationfound", function(event){
+    console.log(event);
+    L.marker([
+        event.latitude, event.longitude
+    ]).addTo(karte);
+
+});
