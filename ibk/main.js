@@ -65,25 +65,33 @@ L.control.layers ({
 
 
 
-karte.setView([47,11], 13)
+karte.setView(
+    [47.267222,11.392778], 13);
 
-let positionsMarker = L.marker ([47,11]).addTo(karte);
+//console.log(SPORTSTAETTEN);
 
-karte.locate ({ 
-    setView : true,
-    maxZoom: 18,
-    watch: true,
-});
 
-karte.on("locationfound", function(event){
-    console.log(event);
-    //L.marker(event.latlng).addTo(karte);
-    positionsMarker.setLatLng(event.latlng);
-});
+//Vorschleife für Objekte
+for(let staette of SPORTSTAETTEN){
+    console.log(staette);
+    //piktogramm definieren
+    let piktogramm = L.icon({
+        iconURL = `icons/icon_${staette.icon}
+        _schwarz_auf_weiss_250px.png`
+    })
 
-L.circleMarker([47.261286399999996, 11.3803264], {radius: 200})
-.addTo(karte);
+    //Marker zeichnen
+  let positionsMarker =   L.marker(
+        [staette.lat,staette.lng] {
+            icon : piktogramm
+        }
+    ).addTo(karte)
+};
 
-karte.on ("locationerror", function(event) {
-    alert ("Leider keinen Standort gefunden")
-});
+//Popup hinzufügen
+positionsmarker.bindPopup(`
+<h3>${staetten.name})</h3>
+<p>${steatte.typ}</p>
+`);
+
+
