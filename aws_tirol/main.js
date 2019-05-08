@@ -33,17 +33,17 @@ const kartenlayer = {
         subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
         attribution: 'Datenquelle: <a href="https//www.basemap.at">basemap.at</a>'
     }),
-    stamen_toner: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.pgn",{
-        subdomains: ["a", "b","c"],
+    stamen_toner: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.pgn", {
+        subdomains: ["a", "b", "c"],
         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
     }),
-    stamen_relief: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",{
-        subdomains: ["a", "b","c"],
+    stamen_relief: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg", {
+        subdomains: ["a", "b", "c"],
         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
     }),
-    stamen_watercolor: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg",{
-       subdomains: ["a", "b","c"],
-       attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>',
+    stamen_watercolor: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg", {
+        subdomains: ["a", "b", "c"],
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>',
     }),
 
 
@@ -51,31 +51,59 @@ const kartenlayer = {
 
 kartenlayer.geolandbasemap.addTo(karte);
 
-L.control.layers ({
+const layerControl = L.control.layers({
     "Geoland Basemap": kartenlayer.geolandbasemap,
     "Geoland Basemap Grau": kartenlayer.bmapgrau,
     "Basemap High DPI": kartenlayer.bmaphidpi,
     "Geoland Basemap Orthofoto": kartenlayer.bmaporthofoto30cm,
     "Geoland Basemap Gelände": kartenlayer.bmapgelaende,
-    "Geoland Basemap Oberfläche": kartenlayer.bmapoberflaeche, 
+    "Geoland Basemap Oberfläche": kartenlayer.bmapoberflaeche,
     "Stamen Toner": kartenlayer.stamen_toner,
     "Stamen Relief": kartenlayer.stamen_relief,
     "Stamen Watercolor": kartenlayer.stamen_watercolor
-    }).addTo(karte);
+}).addTo(karte);
 
 
 
 karte.setView(
-    [47.267222,11.392778], 13);
+    [47.267222, 11.392778], 13);
 
-const awsTirol = L.featureGroup();
-L.geoJson(AWS)
-.bindPopup(function(layer) {
-    console.log("Layer: ",layer);
-    return `Temperatur: ${layer.feature.properties.L} °C <br>
-    Datum: ${layer.feature.properties.date}`;
-})
-.addTo(awsTirol);
-awsTirol.addTo(karte);
+async function loadStations() {
+    const response = await fetch("https://aws.openweb.cc/stations");
+    const stations = await response.json();
 
-karte.fitBounds(awsTirol.getBounds());
+
+    const awsTirol = L.featureGroup();
+    L.geoJson(stations)
+        .bindPopup(function (layer) {
+            const date = new Date(layer.feature.properties.date);
+            console.log("Datum : ", date);
+            return `<h4>${layer.feature.properties.name}</h4>
+            Höhe (m): ${layer.feature.geometry.coordinates [2]} m<br>
+            Temperatur: ${layer.feature.properties.LT} °C <br>
+            Windgeschwindigkeit: 
+        ${layer.feature.properties.WG ? layer.feature.properties.WG + 'km/h' : 'keine Daten'}
+    Datum: ${date.toLocaleDateString("de-AT")}
+    ${date.toLocaleTimeString("de-At")};
+    <hr>
+    <footer>Quelle: Land Tirol - <a href= "https://data.tirol.gv.at "> data.tirol.gv.at </a></footer></hr>`;
+        })
+        .addTo(awsTirol);
+    awsTirol.addTo(karte);
+
+    karte.fitBounds(awsTirol.getBounds());
+    layerControl.addOverlay(awsTirol, "Weterstationen Tirol");
+    L.geoJson(stations, {
+        pointToLayer: function (feature, latlng) {
+            if (feature.properties.WR) {
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        html: '<i class="fas fa-arrow-circle-up"></i>'
+                    })
+                });
+            }
+        }
+    }).addTo(karte);
+
+}
+loadStations();
