@@ -133,10 +133,10 @@ async function loadStations() {
                 }
             }
             
-                let color = 'blue';
-                if (feature.properties.LT > 0) {
-                    color = 'red';
-                }
+                //let color = 'blue';
+                //if (feature.properties.LT > 0) {
+                    //color = 'red';}
+                    
                 return L.marker(latlng, {
                     icon: L.divIcon({
                         html: `<div class= "temperaturLabel" style="background-color:${color}">${feature.properties.LT}</div>`
