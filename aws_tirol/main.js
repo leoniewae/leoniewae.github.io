@@ -137,14 +137,45 @@ async function loadStations() {
     //Temperatur anzeigen
     const temperaturlayer = L.featureGroup();
     const temperaturPalette = [
-        [-20, "#6B655F"], //<-20
-        [-10, "#732E75"], //-20 bis -10
-        [0, "#3701DA"], //-10 bis 0
-        [10, "#007800"], //0 bis 10
-        [20, "#FCFE05"], //10 bis 20
-        [30, "#F77700"], //20 bis 30
-        [40, "#F20205"], //30 bis 40        
-        [99, "730405"], //>40
+        [-30, "#646664"],
+        [-28, "#8c8a8c"],
+        [-26, "#b4b2b4"],
+        [-24, "#cccecc"],
+        [-22, "#e4e6e4"],
+        [-20, "#772d76"],
+        [-18, "#b123b0"],
+        [-16, "#d219d1"],
+        [-14, "#f0f"],
+        [-12, "#ff94ff"],
+        [-10, "#3800d1"],
+        [-8, "#325afe"],
+        [-6, "#2695ff"],
+        [-4, "#00cdff"],
+        [-2, "#00fffe"],
+        [0, "#007800"],
+        [2, "#009d00"],
+        [4, "#00bc02"],
+        [6, "#00e200"],
+        [8, "#0f0"],
+        [10, "#fcff00"],
+        [12, "#fdf200"],
+        [14, "#fde100"],
+        [16, "#ffd100"],
+        [18, "#ffbd00"],
+        [20, "#ffad00"],
+        [22, "#ff9c00"],
+        [24, "#ff7800"],
+        [26, "red"],
+        [28, "#f30102"],
+        [30, "#d20000"],
+        [32, "#c10000"],
+        [34, "#b10000"],
+        [36, "#a10000"],
+        [38, "#900000"],
+        [40, "#770100"],
+        [42, "#5f0100"],
+        [44, "#460101"],
+        [46, "#2e0203"]
     ];
 
     L.geoJson(stations, {
@@ -174,39 +205,41 @@ async function loadStations() {
     layerControl.addOverlay(temperaturlayer, "Temperatur");
     temperaturlayer.addTo(karte);
 
-}
 
-const feuchteLayer = L.featureGroup();
-const feuchtePalette = [
-    [30, "#F0EEF2"],
-    [40, "#DBDEDB"],
-    [50, "#C4C9C8"],
-    [60, "#BCBDBE"],
-    [70, "#ABA9D1"],
-    [80, "#9D95DE"],
-    [90, "#8B85EC"],
-    [999, "#7677E4"],
-];
 
-L.geoJson(stations, {
-    pointToLayer: function (feature, latlng) {
-        if (feature.properties.RH) {
-            let color = feuchtePalette[feuchtePalette.length - 1][1];
-            for (let i = 0; i < feuchtePalette.length; i++) {
-                if (feature.properties.RH < feuchtePalette[i][0]) {
-                    color = feuchtePalette[i][1];
-                    break;
-                } else {}
+    const feuchteLayer = L.featureGroup();
+    const feuchtePalette = [
+        [30, "#F0EEF2"],
+        [40, "#DBDEDB"],
+        [50, "#C4C9C8"],
+        [60, "#BCBDBE"],
+        [70, "#ABA9D1"],
+        [80, "#9D95DE"],
+        [90, "#8B85EC"],
+        [999, "#7677E4"],
+    ];
+
+    L.geoJson(stations, {
+        pointToLayer: function (feature, latlng) {
+            if (feature.properties.RH) {
+                let color = feuchtePalette[feuchtePalette.length - 1][1];
+                for (let i = 0; i < feuchtePalette.length; i++) {
+                    if (feature.properties.RH < feuchtePalette[i][0]) {
+                        color = feuchtePalette[i][1];
+                        break;
+                    } else {}
+                }
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        html: `<div class="feuchteLabel" style="background-color:${color}">${feature.properties.RH}</div>`
+                    })
+                });
             }
-            return L.marker(latlng, {
-                icon: L.divIcon({
-                    html: `<div class="feuchteLabel" style="background-color:${color}">${feature.properties.RH}</div>`
-                })
-            });
         }
-    }
-}).addTo(feuchteLayer);
-layerControl.addOverlay(feuchteLayer, "Relative Feuchte");
+    }).addTo(feuchteLayer);
+    layerControl.addOverlay(feuchteLayer, "Relative Feuchte");
+
+}
 
 
 loadStations();
