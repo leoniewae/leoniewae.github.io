@@ -97,7 +97,18 @@ async function loadSights(url) {
     clusterGruppe.addLayer(geoJson);
     karte.addLayer(clusterGruppe);
     layerControl.addOverlay(clusterGruppe, "Sehenswürdigkeiten");
+
+    const suchFeld = new L.Control.Search({
+        layer: clusterGruppe,
+        propertyName: "NAME",
+        zoom: 17
+    });
+    karte.addControl(suchFeld);
 }
 loadSights(url);
 
-// die Implementierung der Karte startet hier
+const scale = L.control.scale({
+    imperial: false,
+    metric: true,
+});
+karte.addControl(scale);
