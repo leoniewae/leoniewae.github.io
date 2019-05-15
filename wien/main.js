@@ -73,17 +73,17 @@ const url = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&ve
 function makeMarker(feature, latlng) {
     const icon = L.icon({
         iconUrl: 'http://www.data.wien.gv.at/icons/sehenswuerdigogd.svg',
-        iconSize: [36, 36]
+        iconSize: [16, 16]
     });
     const sightmarker = L.marker(latlng, {
         icon: icon
     });
 
     sightmarker.bindPopup(`
-        <h3>${feature.properties.Name}<h3>
+        <h3>${feature.properties.NAME}</h3>
         <p> ${feature.properties.BEMERKUNG}<p>
         <hr>
-        <footer><a href="${feature.properties.WEITERE_Inf}">Weblink<a/></footer>
+        <footer><a href="${feature.properties.WEITERE_INF}" target = "Wienfenster" >Weblink</a></footer>
         `);
     return sightmarker
 }
@@ -101,7 +101,8 @@ async function loadSights(url) {
     const suchFeld = new L.Control.Search({
         layer: clusterGruppe,
         propertyName: "NAME",
-        zoom: 17
+        zoom: 17,
+        initial: false
     });
     karte.addControl(suchFeld);
 }
@@ -112,3 +113,28 @@ const scale = L.control.scale({
     metric: true,
 });
 karte.addControl(scale);
+
+const wege = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERLINIEOGD&srsName=EPSG:4326&outputFormat=json'
+
+function linienPopup(feature, layer){
+    const popup = `
+    <h3>${feature.properties.NAME}<h3>`
+    layer.bindPopup(popup);
+    return popup
+}
+
+async function loadWege(wegeUrl) {
+    const response = await fetch(wegeUrl)
+    const wegeData = await response.json();
+    const wegeJson = L.geoJson(wegeData, {
+        style: function() {
+            return {
+                color: "green"
+            };
+        },
+        onEachFeature: linienPopup
+    });
+    karte.addLayer(wegeJson);
+    layerControl.addOverlay(wegeJson,"Spazierwege");
+}
+loadWege(wege);
