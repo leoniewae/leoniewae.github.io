@@ -79,25 +79,23 @@ function makeMarker(feature, latlng) {
         icon: icon
     });
 
-
-
     sightmarker.bindPopup(`
         <h3>${feature.properties.Name}<h3>
         <p> ${feature.properties.BEMERKUNG}<p>
         <hr>
         <footer><a href="${feature.properties.WEITERE_Inf}">Weblink<a/></footer>
         `);
-
+    return sightmarker
 }
 async function loadSights(url) {
-    const clusterGruppe = L.markerClusterGruppe();
+    const clusterGruppe = L.markerClusterGroup();
     const response = await fetch(url);
     const sightsData = await response.json();
     const geoJson = L.geoJson(sightsData, {
         pointToLayer: makeMarker
     });
     clusterGruppe.addLayer(geoJson);
-    karte.addLayer(clusterGrupp);
+    karte.addLayer(clusterGruppe);
     layerControl.addOverlay(clusterGruppe, "Sehenswürdigkeiten");
 }
 loadSights(url);
