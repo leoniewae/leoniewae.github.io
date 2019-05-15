@@ -68,5 +68,38 @@ kartenLayer.bmapgrau.addTo(karte);
 karte.addControl(new L.Control.Fullscreen());
 
 karte.setView([48.208333, 16.373056], 12);
+const url = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERPUNKTOGD &srsName=EPSG:4326&outputFormat=json'
+
+function makeMarker(feature, latlng) {
+    const icon = L.icon({
+        iconUrl: 'http://www.data.wien.gv.at/icons/sehenswuerdigogd.svg',
+        iconSize: [36, 36]
+    });
+    const sightmarker = L.marker(latlng, {
+        icon: icon
+    });
+
+
+
+    sightmarker.bindPopup(`
+        <h3>${feature.properties.Name}<h3>
+        <p> ${feature.properties.BEMERKUNG}<p>
+        <hr>
+        <footer><a href="${feature.properties.WEITERE_Inf}">Weblink<a/></footer>
+        `);
+
+}
+async function loadSights(url) {
+    const clusterGruppe = L.markerClusterGruppe();
+    const response = await fetch(url);
+    const sightsData = await response.json();
+    const geoJson = L.geoJson(sightsData, {
+        pointToLayer: makeMarker
+    });
+    clusterGruppe.addLayer(geoJson);
+    karte.addLayer(clusterGrupp);
+    layerControl.addOverlay(clusterGruppe, "Sehenswürdigkeiten");
+}
+loadSights(url);
 
 // die Implementierung der Karte startet hier

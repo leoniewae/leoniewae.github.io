@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="sehenswuerdigkeit-icon" role="img" aria-labelledby="title desc" 
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 19 19" preserveAspectRatio="xMidYMid meet" style="enable-background:new 0 0 19 19;" xml:space="preserve">
+<title id="title">Sehenswürdigkeit</title>
+<desc id="desc">An diesem Platz befindet sich eine Sehenswürdigkeit.</desc>
+<style type="text/css">
+<![CDATA[
+	.background{fill-rule:evenodd;clip-rule:evenodd;fill:#A80084;}
+	.icon-outline{fill:#FAFAFA;}
+	.icon-line{fill-rule:evenodd;clip-rule:evenodd;fill:none;stroke:#A80084;stroke-linecap:round;stroke-linejoin:round;}
+	.icon-fill{fill-rule:evenodd;clip-rule:evenodd;fill:#FAFAFA;}
+]]>
+</style>
+<rect role="presentation" id="background" class="background" x="0" y="0" rx="3" ry="3" width="19" height="19" />
+<g role="presentation" id="icon-kamera">
+	<path role="presentation" class="icon-outline" d="M7.98,5.02v1H9h5.98v7.97H4.02V6.02H5h1.02v-1H7.98 M9,4H5v1H3v10h13V5H9V4L9,4z"/>
+	<rect role="presentation" x="5" y="7" class="icon-fill" width="10" height="7"/>
+	<line role="presentation" class="icon-line" x1="6.57" y1="8.93" x2="7.76" y2="8.93"/>
+	<line role="presentation" class="icon-line" x1="6.57" y1="11.3" x2="7.76" y2="11.3"/>
+	<path role="presentation" class="icon-line" d="M10.14,10.71c0-0.99,0.79-1.78,1.78-1.78s1.78,0.79,1.78,1.78c0,0.99-0.79,1.78-1.78,1.78
+		S10.14,11.7,10.14,10.71z"/>
+</g>
+</svg>
