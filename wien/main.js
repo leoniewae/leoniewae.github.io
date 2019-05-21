@@ -70,7 +70,7 @@ karte.addControl(new L.Control.Fullscreen());
 karte.setView([48.208333, 16.373056], 12);
 const url = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERPUNKTOGD &srsName=EPSG:4326&outputFormat=json'
 
-function makeMarker(feature, latlng) {
+function sightmakemarker(feature, latlng) {
     const icon = L.icon({
         iconUrl: 'http://www.data.wien.gv.at/icons/sehenswuerdigogd.svg',
         iconSize: [16, 16]
@@ -92,7 +92,7 @@ async function loadSights(url) {
     const response = await fetch(url);
     const sightsData = await response.json();
     const geoJson = L.geoJson(sightsData, {
-        pointToLayer: makeMarker
+        pointToLayer: sightmakemarker
     });
     clusterGruppe.addLayer(geoJson);
     karte.addLayer(clusterGruppe);
@@ -113,6 +113,14 @@ const scale = L.control.scale({
     metric: true,
 });
 karte.addControl(scale);
+
+
+
+
+
+
+
+
 
 const wege = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERLINIEOGD&srsName=EPSG:4326&outputFormat=json'
 
@@ -138,3 +146,35 @@ async function loadWege(wegeUrl) {
     layerControl.addOverlay(wegeJson,"Spazierwege");
 }
 loadWege(wege);
+
+const wlan = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:WLANWIENATOGD&srsName=EPSG:4326&outputFormat=json'
+
+function makeMarker(feature, latlng){
+    const wlanIcon = L.icon({
+        iconUrl: 'http://www.data.wien.gv.at/icons/wlanwienatogd.svg',
+        iconSize: [16, 16]
+    });
+    const wlanMarker = L.marker(latlng, {
+        icon: wlanIcon
+    });
+    wlanMarker.bindPopup(`
+        <h3>${feature.properties.NAME}</h3>
+        <p>${feature.properties.ADRESSE}</p>  
+        `); 
+    return wlanMarker;
+}
+
+async function loadwlan(url) {
+    const wlanclusterGruppe = L.markerClusterGroup();
+    const wlanresponse = await fetch(url);
+    const wlanData = await wlanresponse.json();
+    const wlangeoJson = L.geoJson(wlanData, {
+        pointToLayer:makeMarker
+    });
+    wlanclusterGruppe.addLayer(wlangeoJson);
+    karte.addLayer(wlanclusterGruppe);
+    layerControl.addOverlay(wlanclusterGruppe, "Wlan Standort");
+
+}
+
+loadwlan(wlan);
