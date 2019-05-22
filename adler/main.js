@@ -52,17 +52,17 @@ const kartenlayer = {
         subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
         attribution: 'Datenquelle: <a href="https//www.basemap.at">basemap.at</a>'
     }),
-    stamen_toner: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.pgn",{
-        subdomains: ["a", "b","c"],
+    stamen_toner: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.pgn", {
+        subdomains: ["a", "b", "c"],
         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
     }),
-    stamen_relief: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",{
-        subdomains: ["a", "b","c"],
+    stamen_relief: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg", {
+        subdomains: ["a", "b", "c"],
         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
     }),
-    stamen_watercolor: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg",{
-       subdomains: ["a", "b","c"],
-       attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>',
+    stamen_watercolor: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg", {
+        subdomains: ["a", "b", "c"],
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>',
     }),
 
 
@@ -72,16 +72,16 @@ const kartenlayer = {
 kartenlayer.geolandbasemap.addTo(karte);
 
 //Auswahlmenü hinzufügen
-L.control.layers ({
-"Geoland Basemap": kartenlayer.geolandbasemap,
-"Geoland Basemap Grau": kartenlayer.bmapgrau,
-"Basemap High DPI": kartenlayer.bmaphidpi,
-"Geoland Basemap Orthofoto": kartenlayer.bmaporthofoto30cm,
-"Geoland Basemap Gelände": kartenlayer.bmapgelaende,
-"Geoland Basemap Oberfläche": kartenlayer.bmapoberflaeche, 
-"Stamen Toner": kartenlayer.stamen_toner,
-"Stamen Relief": kartenlayer.stamen_relief,
-"Stamen Watercolor": kartenlayer.stamen_watercolor
+L.control.layers({
+    "Geoland Basemap": kartenlayer.geolandbasemap,
+    "Geoland Basemap Grau": kartenlayer.bmapgrau,
+    "Basemap High DPI": kartenlayer.bmaphidpi,
+    "Geoland Basemap Orthofoto": kartenlayer.bmaporthofoto30cm,
+    "Geoland Basemap Gelände": kartenlayer.bmapgelaende,
+    "Geoland Basemap Oberfläche": kartenlayer.bmapoberflaeche,
+    "Stamen Toner": kartenlayer.stamen_toner,
+    "Stamen Relief": kartenlayer.stamen_relief,
+    "Stamen Watercolor": kartenlayer.stamen_watercolor
 }).addTo(karte);
 
 
@@ -127,6 +127,28 @@ karte.addControl(new L.Control.Fullscreen());
 var hash = new L.Hash(karte);
 var coords = new L.Control.Coordinates();
 coords.addTo(karte);
-karte.on('click', function(e) {
-	coords.setCoordinates(e);
+karte.on('click', function (e) {
+    coords.setCoordinates(e);
 });
+
+var gpx = 'AdlerwegEtappe15.gpx';
+new L.GPX(gpx, {
+    async: true,
+    marker_options: {
+        startIconUrl: 'pin-icon-start.png',
+        endIconUrl: 'pin-icon-end.png',
+        shadowUrl: 'pin-shadow.png'
+    }
+}).on('loaded', function (e) {
+    karte.fitBounds(e.target.getBounds());
+}).on('addline', function (e) {
+    console.log('linie geladen');
+
+    const controlElevation = L.control.elevation({
+        detachedView: true,
+        elevationDiv: "#elevation-div",
+
+    })
+    controlElevation.addTo(karte);
+    controlElevation.addData(e.line);
+}).addTo(karte);

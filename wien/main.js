@@ -67,6 +67,61 @@ kartenLayer.bmapgrau.addTo(karte);
 
 karte.addControl(new L.Control.Fullscreen());
 
+const wikipediaGruppe = L.featureGroup().addTo(karte);
+layerControl.addOverlay(wikipediaGruppe, "Wikipedia Artikel");
+
+
+async function wikipediaArtikelLaden(url) {
+    wikipediaGruppe.clearLayers();
+
+
+    console.log("Lade", url);
+
+
+    const response = await fetch(url)
+    const jsonData = await response.json();
+
+    console.log(jsonData);
+    for (let artikel of jsonData.geonames) {
+        const wikipediamarker = L.marker([artikel.lat, artikel.lng], {
+            icon : L.icon({
+                iconUrl:"icons/icons8-wikipedia-26.png",
+                iconSize: [22,22]
+            })
+
+        }).addTo(wikipediaGruppe);
+
+
+        wikipediamarker.bindPopup(`
+        <h3>${artikel.titel}</h3>
+        <p>${artikel.summary}</p>
+        <hr>
+        <footer><a target="_blank" href="https://${artikel.wikipediaUrl}"Weblink</a></footer>
+        `);
+    }
+}
+
+let letzteGeonamesUrl = null;
+karte.on("load zoomend moveend", function () {
+    console.log("karte geladen", karte.getBounds());
+
+    let ausschnitt = {
+        n: karte.getBounds().getNorth(),
+        s: karte.getBounds().getSouth(),
+        o: karte.getBounds().getEast(),
+        w: karte.getBounds().getWest()
+    }
+    console.log(ausschnitt);
+    const geonamesUrl = `http://api.geonames.org/wikipediaBoundingBoxJSON?formatted=true&north=${ausschnitt.n}&south=${ausschnitt.s}&east=${ausschnitt.o}&west=${ausschnitt.w}&username=webmapping&style=full&maxRows=50&lang=de`;
+    console.log(geonamesUrl);
+
+    if (geonamesUrl!=letzteGeonamesUrl){
+//JSON-Artikel Laden
+    wikipediaArtikelLaden(geonamesUrl);
+    letzteGeonamesUrl = geonamesUrl;
+}
+});
+
 karte.setView([48.208333, 16.373056], 12);
 const url = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERPUNKTOGD &srsName=EPSG:4326&outputFormat=json'
 
@@ -174,7 +229,3 @@ loadwlan(wlan);
 //Wikipedia Artikel Laden
 //http://api.geonames.org/wikipediaBoundingBoxJSON?formatted=true&north=44.1&south=-9.9&east=-22.4&west=55.2&username=webmapping&style=full
 
-
-karte.on("load", function () {
-    console.log
-}
