@@ -145,10 +145,47 @@ new L.GPX(gpx, {
     console.log('linie geladen');
 
     const controlElevation = L.control.elevation({
+        //position: "bottomright",
+        //collapsed: false,
         detachedView: true,
         elevationDiv: "#elevation-div",
 
     })
     controlElevation.addTo(karte);
     controlElevation.addData(e.line);
-}).addTo(karte);
+    const gpxLine = e.line.getLatLngs();
+    console.log(gpxLine);
+
+    for (let i = 1; i < gpxLine.length; i += 1) 
+    {
+        
+    let p1 = gpxLine[i - 1];
+        let p2 = gpxLine[i];
+        let dist = karte.distance(
+            [p1.lat, p1.lng],
+            [p2.lat, p2.lng]
+        );
+        let delta = (p2.meta.ele - p1.meta.ele)
+        let proz = (dist != 0 ? delta / dist * 100.0 : 0).toFixed(1);
+        console.log('Distanz:', dist, 'Höhendiff', delta, 'Steigung', proz);
+        let farbe =
+            proz >= 10 ? '#d73027' :
+            proz >= 6 ? '#f46d43' :
+            proz >= 4 ? '#fdae61' :
+            proz >= 2 ? '#fee08b' :
+            proz >= 0 ? '#d9ef8b' :
+            proz >= -6 ? '#a6d96a' :
+            proz >= -10 ? '#66bd63' :
+                        '#1a9850'
+                      
+
+        L.polyline ([
+            [p1.lat, p1.lng],
+            [p2.lat, p2.lng],
+        ], {
+            color: farbe,
+        }).addTo(karte);
+
+    }
+
+});
