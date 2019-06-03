@@ -12,3 +12,12 @@ const kartenlayer = {
 };
 
 kartenlayer.geolandbasemap.addTo(karte);
+
+L.control.layers ({
+    "Geoland Basemap": kartenlayer.geolandbasemap
+    }).addTo(karte);
+
+
+
+karte.setView(
+    [47.267222,11.392778], 13);

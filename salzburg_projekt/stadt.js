@@ -39,7 +39,15 @@ L.control.layers ({
     "Stamen Watercolor": kartenlayer.stamen_watercolor
     }).addTo(karte);
 
-
+    kartenLayer.geolandbasemap.addTo(karte);
 
 karte.setView(
     [47.80814,11.04209], 13);
+
+karte.addControl(new L.Control.Fullscreen());
+
+const scale = L.control.scale({
+    imperial: false,
+    metric: true,
+});
+karte.addControl(scale);
