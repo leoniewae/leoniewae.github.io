@@ -1,13 +1,28 @@
 body{
-    margin: 0;
-    padding: 0;
+    max-width: 1280px;
+    margin: auto;
+    font-family: "Open Sans";
 }
 
+header {
+    text-align: center;
+    background-image: url("klimakarte_bild1.jpg");
+    background-position: 0 50%;
+}
 
+header h2 {
+    font-size: 4em;
+    color: black;
+    margin: 0;
+    padding: 1em 0;
+
+}
 
 #map {
-    width: 100vw;
-    height: 100vh;
+    height: 360px;
+    width: 90%;
+    border: 1px solid black;
+
 }
 
 .leaflet-div-icon {
