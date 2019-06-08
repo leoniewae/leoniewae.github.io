@@ -12,9 +12,16 @@ header {
 
 header h2 {
     font-size: 4em;
-    color: white;
+    color: black;
     margin: 0;
     padding: 1em 0;
+}
+
+header h3 {
+        font-size: 2em;
+        color: blue;
+        margin: 0;
+        padding: 1em 0;
 
 }
 
@@ -28,17 +35,4 @@ header h2 {
 .leaflet-div-icon {
     background: none;
     border: none;
-}
-
-.temperaturLabel {
-    display: inline;
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 0.3em;
-    border: 1px solid gray;
-    text-shadow:
-    -1px -1px 0 white,
-     1px -1px 0 white,
-    -1px -1px 0 white,
-     1px -1px 0 white;
 }

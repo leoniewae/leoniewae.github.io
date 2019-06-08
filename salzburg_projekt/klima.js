@@ -45,91 +45,46 @@ const layerControl = L.control.layers({
 }).addTo(karte);
 
 
-let letzteGeonamesUrl = null;
-karte.on("load zoomend moveend", function () {
-    console.log("karte geladen", karte.getBounds());
-
-    const wikipediaGruppe = L.featureGroup().addTo(karte);
-    layerControl.addOverlay(wikipediaGruppe, "Wikipedia Artikel");
-
-
-    async function wikipediaArtikelLaden(url) {
-        wikipediaGruppe.clearLayers();
-
-
-        console.log("Lade", url);
-
-
-        const response = await fetch(url)
-        const jsonData = await response.json();
-
-        console.log(jsonData);
-        for (let artikel of jsonData.geonames) {
-            const wikipediamarker = L.marker([artikel.lat, artikel.lng], {
-                icon: L.icon({
-                    iconUrl: "icons/icons8-wikipedia-26.png",
-                    iconSize: [22, 22]
-                })
-
-            }).addTo(wikipediaGruppe);
-
-
-            wikipediamarker.bindPopup(`
-        <h3>${artikel.titel}</h3>
-        <p>${artikel.summary}</p>
-        <hr>
-        <footer><a target="_blank" href="https://${artikel.wikipediaUrl}"Weblink</a></footer>
-        `);
-        }
-    }
-
-    let ausschnitt = {
-        n: karte.getBounds().getNorth(),
-        s: karte.getBounds().getSouth(),
-        o: karte.getBounds().getEast(),
-        w: karte.getBounds().getWest()
-    }
-    console.log(ausschnitt);
-    const geonamesUrl = `http://api.geonames.org/wikipediaBoundingBoxJSON?formatted=true&north=${ausschnitt.n}&south=${ausschnitt.s}&east=${ausschnitt.o}&west=${ausschnitt.w}&username=webmapping&style=full&maxRows=50&lang=de`;
-    console.log(geonamesUrl);
-
-    if (geonamesUrl != letzteGeonamesUrl) {
-        //JSON-Artikel Laden
-        wikipediaArtikelLaden(geonamesUrl);
-        letzteGeonamesUrl = geonamesUrl;
-    }
-});
-
-
 karte.setView(
     [47.80949, 13.05501], 10);
 
 const url = 'https://www.salzburg.gv.at/ogd/28c9e877-36e7-4ced-896e-6bead8f9e190/Liftanlagen.json'
 
-function linienPopup(feature, layer) {
-    const popup = `
-    <h3>${feature.properties.NAME}<h3>`
-    layer.bindPopup(popup);
-    return popup
+function Liftmakemarker(geometry, latlng) {
+    const icon = L.icon({
+        iconUrl: "icons/icon_ski_alpin_schwarz_auf_weiss_250px.png",
+        iconSize: [16, 16]
+    });
+    const Liftmarker = L.marker(latlng, {
+        icon: icon
+    });
+
+    Liftmarker.bindPopup(`
+        <h3>${geometry.Name}</h3>
+        <p> ${geometry.Name.attributes.Anlagenart.Saison.Status}<p>
+        <hr>
+        <footer><a href="${geometry.Name.attributes.Anlagenart.Saison.Status}" target = "Lifte" >Weblink</a></footer>
+        `);
+    return Liftmarker
 }
-
-
 async function loadLift(url) {
     const clusterGruppe = L.markerClusterGroup();
-    const response = await fetch(url)
+    const response = await fetch(url);
     const LiftData = await response.json();
-    const LiftJson = L.geoJson(LiftData, {
-        style: function () {
-            return {
-                color: "green"
-            };
-        },
-        onEachFeature: linienPopup
+    const geoJson = L.geoJson(LiftData, {
+        pointToLayer: Liftmakemarker
     });
     clusterGruppe.addLayer(geoJson);
     karte.addLayer(clusterGruppe);
     layerControl.addOverlay(clusterGruppe, "Liftanlagen");
 
+    const suchFeld = new L.Control.Search({
+        layer: clusterGruppe,
+        propertyName: "Name",
+        zoom: 17,
+        initial: false
+    });
+    karte.addControl(suchFeld);
 }
 loadLift(url);
 
@@ -137,6 +92,12 @@ loadLift(url);
 //PlugIns Fullscreen, Maßstab, Minimap, Suchfeld
 
 karte.addControl(new L.Control.Fullscreen());
+
+var coords = new L.Control.Coordinates();
+coords.addTo(karte);
+karte.on('click', function (e) {
+    coords.setCoordinates(e);
+});
 
 const scale = L.control.scale({
     imperial: false,
@@ -155,10 +116,3 @@ new L.Control.MiniMap(
 
 ).addTo(karte);
 
-const suchFeld = new L.Control.Search({
-    layer: clusterGruppe,
-    propertyName: "NAME",
-    zoom: 17,
-    initial: false
-});
-karte.addControl(suchFeld);

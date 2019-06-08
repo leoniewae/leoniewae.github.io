@@ -123,6 +123,8 @@ karte.on("load zoomend moveend", function () {
 });
 
 karte.setView([48.208333, 16.373056], 12);
+
+
 const url = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERPUNKTOGD &srsName=EPSG:4326&outputFormat=json'
 
 function sightmakemarker(feature, latlng) {
