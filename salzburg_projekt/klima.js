@@ -102,50 +102,63 @@ karte.on("load zoomend moveend", function () {
 
 
 karte.setView(
-    [47.80814, 11.04209], 8);
-const url = 'https://www.salzburg.gv.at/ogd/294de677-b02d-4a74-b189-cc04fa820d96/Schipisten_WGS84.json'
+    [47.80949, 13.05501], 10);
 
-function schimakemarker(feature, latlng) {
-    const icon = L.icon({
-        iconUrl: 'http://www.data.wien.gv.at/icons/sehenswuerdigogd.svg',
-        iconSize: [16, 16]
-    });
-    const schimarker = L.marker(latlng, {
-        icon: icon
-    });
+const url = 'https://www.salzburg.gv.at/ogd/28c9e877-36e7-4ced-896e-6bead8f9e190/Liftanlagen.json'
 
-    schimarker.bindPopup(`
-        <h3>${feature.properties.NAME}</h3>
-        <p> ${feature.properties.BEMERKUNG}<p>
-        <hr>
-        <footer><a href="${feature.properties.WEITERE_INF}" target = "Wienfenster" >Weblink</a></footer>
-        `);
-    return schimarker
+function linienPopup(feature, layer) {
+    const popup = `
+    <h3>${feature.properties.NAME}<h3>`
+    layer.bindPopup(popup);
+    return popup
 }
-async function loadSchi(url) {
+
+
+async function loadLift(url) {
     const clusterGruppe = L.markerClusterGroup();
-    const response = await fetch(url);
-    const schiData = await response.json();
-    const geoJson = L.geoJson(schiData, {
-        pointToLayer: schimakemarker
+    const response = await fetch(url)
+    const LiftData = await response.json();
+    const LiftJson = L.geoJson(LiftData, {
+        style: function () {
+            return {
+                color: "green"
+            };
+        },
+        onEachFeature: linienPopup
     });
     clusterGruppe.addLayer(geoJson);
     karte.addLayer(clusterGruppe);
-    layerControl.addOverlay(clusterGruppe, "SchiPisten");
+    layerControl.addOverlay(clusterGruppe, "Liftanlagen");
+
+}
+loadLift(url);
 
 
-    karte.addControl(new L.Control.Fullscreen());
+//PlugIns Fullscreen, Maßstab, Minimap, Suchfeld
 
-    const scale = L.control.scale({
-        imperial: false,
-        metric: true,
-    });
-    karte.addControl(scale);
+karte.addControl(new L.Control.Fullscreen());
 
-    const suchFeld = new L.Control.Search({
-        layer: clusterGruppe,
-        propertyName: "NAME",
-        zoom: 17,
-        initial: false
-    });
-    karte.addControl(suchFeld);}
+const scale = L.control.scale({
+    imperial: false,
+    metric: true,
+});
+karte.addControl(scale);
+
+new L.Control.MiniMap(
+
+    L.tileLayer("https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
+        subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+    }), {
+        zoomLevelOffset: -4,
+        toggleDisplay: true
+    }
+
+).addTo(karte);
+
+const suchFeld = new L.Control.Search({
+    layer: clusterGruppe,
+    propertyName: "NAME",
+    zoom: 17,
+    initial: false
+});
+karte.addControl(suchFeld);
